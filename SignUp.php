@@ -83,8 +83,8 @@ class UserHandler {
         if (!array_filter($errors)) {
             $sql = "INSERT INTO users (username, email, pass, role) VALUES (?, ?, ?, ?)";
             $stmt = mysqli_prepare($this->conn, $sql);
-            $hashedPass = password_hash($data['pass'], PASSWORD_DEFAULT);
-            mysqli_stmt_bind_param($stmt, "ssss", $data['username'], $data['email'], $hashedPass, $data['role']);
+            // $hashedPass = password_hash($data['pass'], PASSWORD_DEFAULT);
+            mysqli_stmt_bind_param($stmt, "ssss", $data['username'], $data['email'],$data['pass'], $data['role']);
 
             if (mysqli_stmt_execute($stmt)) {
                 mysqli_stmt_close($stmt);

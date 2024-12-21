@@ -3,42 +3,51 @@ require_once 'config/connect_DB.php'; // Include the Database singleton
 
 class Analytics {
     private $conn;
-    private $analytics;
 
     public function __construct() {
         $db = Database::getInstance(); // Get the Database instance
         $this->conn = $db->getConnection(); // Get the connection
     }
 
-    public function fetchDailyAnalytics() {
-        $sql = "SELECT DATE(created_at) AS date, COUNT(*) AS notes_count FROM clinical_notes GROUP BY DATE(created_at)";
-        $result = mysqli_query($this->conn, $sql);
-        if (!$result) {
-            die("Query failed: " . mysqli_error($this->conn));
-        }
-        $this->analytics = [];
-        while ($row = mysqli_fetch_assoc($result)) {
-            $this->analytics[] = $row;
-        }
-        mysqli_free_result($result);
-    }
+    public function getNotesPerDay($startDate, $endDate) {
+        $sql = "SELECT DATE(date) as day, COUNT(*) as count FROM note WHERE date BETWEEN ? AND ? GROUP BY DATE(date)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('ss', $startDate, $endDate);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $notesPerDay = [];
 
-    public function getAnalytics() {
-        return $this->analytics;
+        while ($row = $result->fetch_assoc()) {
+            $notesPerDay[] = $row;
+        }
+
+        $stmt->close();
+        return $notesPerDay;
     }
 }
 
 // Create an instance of the Analytics class
-$db = Database::getInstance(); // Get the Database instance
-$conn = $db->getConnection(); // Get the connection
-$analytics = new Analytics($conn);
+$analytics = new Analytics();
 
-// Fetch daily analytics
-$analytics->fetchDailyAnalytics();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $week = $_POST['week'] ?? null;
 
-// Get the analytics data
-$analyticsData = $analytics->getAnalytics();
+    if ($week) {
+        $year = substr($week, 0, 4);
+        $weekNumber = substr($week, -2);
+
+        $startDate = date('Y-m-d', strtotime($year . "W" . $weekNumber . "1"));
+        $endDate = date('Y-m-d', strtotime($year . "W" . $weekNumber . "7"));
+
+        $notesPerDay = $analytics->getNotesPerDay($startDate, $endDate);
+    } else {
+        $notesPerDay = [];
+    }
+} else {
+    $notesPerDay = [];
+}
 ?>
+
 
 
 <!DOCTYPE html>
@@ -50,16 +59,25 @@ $analyticsData = $analytics->getAnalytics();
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-<?php include('templates/header.php');?>
-    <h2>Notes Analyzed Per Day</h2>
-    <canvas id="notesChart" width="400" height="200"></canvas>
-    <script>
-        const labels = <?= json_encode(array_column($analytics, 'date')); ?>;
-        const data = <?= json_encode(array_column($analytics, 'notes_count')); ?>;
-        
+<?php include('templates/header.php'); ?>
+
+<form method="POST" action="">
+    <label for="week">Choose a Week:</label>
+    <input type="week" id="week" name="week" required>
+    <button type="submit">Fetch Data</button>
+</form>
+
+<h2>Notes Analyzed Per Day</h2>
+<canvas id="notesChart" width="400" height="200"></canvas>
+
+<script>
+    const labels = <?= json_encode(array_column($notesPerDay, 'day')); ?>;
+    const data = <?= json_encode(array_column($notesPerDay, 'count')); ?>;
+
+    if (labels.length && data.length) {
         const ctx = document.getElementById('notesChart').getContext('2d');
         new Chart(ctx, {
-            type: 'bar',
+            type: 'line',
             data: {
                 labels: labels,
                 datasets: [{
@@ -78,6 +96,12 @@ $analyticsData = $analytics->getAnalytics();
                 }
             }
         });
-    </script>
+    } else {
+        document.getElementById('notesChart').remove();
+        
+    }
+</script>
+
 </body>
 </html>
+

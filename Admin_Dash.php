@@ -70,6 +70,39 @@ class AdminDashboard
         $this->db->closeResult($result);
         return $row['row_count'];
     }
+
+    public function getTodayNoteCount()
+    {
+        // Get today's date
+        $today = date('Y-m-d');
+
+        // Query to count the notes created today
+        $sql = "SELECT COUNT(*) AS today_count FROM note WHERE DATE(date) = '$today'";
+        $result = $this->db->query($sql);
+        $row = $this->db->fetchAll($result)[0];
+        $this->db->closeResult($result);
+        return $row['today_count'];
+    }
+
+    public function getNotesPerDay($startDate, $endDate)
+    {
+        $sql = "SELECT DATE(date) as day, COUNT(*) as count FROM note WHERE date BETWEEN '$startDate' AND '$endDate' GROUP BY DATE(date)";
+        $result = $this->db->query($sql);
+        $notesPerDay = $this->db->fetchAll($result);
+        $this->db->closeResult($result);
+        return $notesPerDay;
+    }
+
+    public function getNoteStatusDistribution()
+    {
+        $sql = "SELECT status, COUNT(*) as count FROM note GROUP BY status";
+        $result = $this->db->query($sql);
+        $statusDistribution = $this->db->fetchAll($result);
+        $this->db->closeResult($result);
+        return $statusDistribution;
+    }
+    
+    
 }
 
 // Corrected: Use the Dat class to handle database queries
@@ -79,6 +112,12 @@ $adminDashboard = new AdminDashboard($db);
 $userData = $adminDashboard->getUserData();
 $users = $adminDashboard->getAllUsers();
 $noteCount = $adminDashboard->getNoteCount();
+$todayNoteCount = $adminDashboard->getTodayNoteCount();
+$notesPerDay = $adminDashboard->getNotesPerDay('2024-12-01', '2024-12-22'); // example dates
+
+// Pass the data to JavaScript
+$notesPerDayJson = json_encode($notesPerDay);
+
 
 ?>
 
@@ -126,8 +165,8 @@ $noteCount = $adminDashboard->getNoteCount();
             <!-- Stats Section -->
             <section class="dashboard-stats">
                 <div class="stat-card">
-                    <h3>Total Clinical Notes</h3>
-                    <p>12,345</p>
+                    <h3>Total Discussion</h3>
+                    <p><?php echo isset($noteCount) ? $noteCount : 0; ?></p>
                 </div>
                 <div class="stat-card">
                     <h3>Total Users</h3>
@@ -135,7 +174,7 @@ $noteCount = $adminDashboard->getNoteCount();
                 </div>
                 <div class="stat-card">
                     <h3>Notes Analyzed Today</h3>
-                    <p>145</p>
+                    <p><?php echo isset($todayNoteCount) ? $todayNoteCount : 0; ?></p>
                 </div>
                 <div class="stat-card">
                     <h3>Pending Notes</h3>
@@ -144,19 +183,19 @@ $noteCount = $adminDashboard->getNoteCount();
             </section>
             <script src="Admin_Dash.js?v=<?php echo time(); ?>"></script>
 
-            <!-- Charts Section -->
-            <section class="charts-section">
-    <div class="chart">
-        <h3>Notes Analyzed Per Day</h3>
-        <label for="weekPicker">Select a Week:</label>
-        <input type="week" id="weekPicker">
-        <canvas id="notesChart"></canvas>
-    </div>
+          <!-- Charts Section -->
+          <section class="charts-section">
+    
+
+    <!-- Charts Section -->
+    <section class="charts-section">
+    
 
     <div class="chart">
         <h3>Note Status Distribution</h3>
         <canvas id="statusChart"></canvas>
     </div>
+</section>
 </section>
 
            <!-- Notes Table -->
@@ -193,7 +232,9 @@ $noteCount = $adminDashboard->getNoteCount();
         </div>
     </div>
 
-    
+   
+
+
 </body>
 </html>
 
@@ -252,3 +293,8 @@ $noteCount = $adminDashboard->getNoteCount();
                             <td>Dr. Jones</td>
                             <td></td>
                         </tr> -->
+
+
+
+
+

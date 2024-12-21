@@ -58,9 +58,10 @@ $userManager->closeConnection();
                 <tr>
                     <th>ID</th>
                     <th>Title</th>
-                    <th>Status</th>
-                    <th>User ID</th>
+                    <th>Description</th>
+                    <th>User </th>
                     <th>Date</th>
+                    
                 </tr>
             </thead>
             <tbody>

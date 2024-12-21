@@ -1,0 +1,268 @@
+/* General Reset */
+html {
+    scroll-behavior: smooth;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f2ed; /* Light beige background */
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+/* Hero Section */
+.hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px;
+    opacity: 1; /* Keep it visible initially */
+    transform: translateY(0); /* Keep it in its normal position */
+    transition: none; /* No transition for the hero section */
+}
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.content {
+    max-width: 50%;
+}
+.clinic-name {
+    color: #f47920;
+    font-size: 16px;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+.tagline {
+    font-size: 18px;
+    color: #666;
+    margin: 10px 0;
+}
+.headline {
+    font-size: 36px;
+    color: #053c6b;
+    margin-bottom: 20px;
+}
+.buttons {
+    margin-top: 20px;
+}
+.btn {
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 10px;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+.btn-primary {
+    background-color: #f47920;
+    color: #fff;
+    border: none;
+}
+.btn-secondary {
+    background-color: #fff;
+    color: #053c6b;
+    border: 2px solid #053c6b;
+}
+.btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+.btn:focus {
+    outline: 2px dashed #053c6b;
+    outline-offset: 4px;
+}
+.image-container {
+    max-width: 45%;
+}
+.image-container img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* About Section */
+/* About Section */
+.about-section {
+    padding: 50px 20px;
+    background-color: #f5f2ed; /* Change to your chosen color */
+    text-align: center;
+}
+
+.about-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+    gap: 20px;
+}
+.about-row.reverse {
+    flex-direction: row-reverse;
+}
+.about-text {
+    flex: 1;
+    padding: 20px;
+}
+.about-text h2 {
+    font-size: 28px;
+    color: #053c6b;
+    margin-bottom: 10px;
+}
+.about-text p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+}
+.about-image {
+    flex: 1;
+    text-align: center;
+}
+.about-image img {
+    width: 100%;
+    max-width: 450px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+@media (max-width: 768px) {
+    .about-row {
+        flex-direction: column;
+    }
+}
+
+/* Inclusive Section */
+.inclusive-section {
+    padding: 60px 40px;
+}
+.inclusive-content {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+.inclusive-image {
+    flex: 1;
+}
+.inclusive-image img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.inclusive-text {
+    flex: 1;
+}
+/* Inclusive Section Text Styling */
+.inclusive-text h2 {
+    font-size: 36px; /* Increase heading size */
+    text-align: left; /* Ensure it aligns to the left */
+    margin-left: 20px; /* Move the heading slightly to the right */
+    color: #053c6b; /* Keep the section's theme color */
+}
+
+.inclusive-text ul {
+    font-size: 20px; /* Make list text larger */
+    line-height: 1.8; /* Improve spacing for readability */
+    margin-left: 40px; /* Move the list more to the right */
+    color: #333; /* Keep a clear, readable color */
+}
+
+
+.card-section .section-title {
+    font-size: 40px; /* Bigger font size */
+    font-weight: bold; /* Make it bold */
+    text-align: center; /* Center-align the text */
+    color: #053c6b; /* Maintain a professional theme color */
+    margin-bottom: 30px; /* Add spacing below */
+}
+
+/* Card Section */
+.card {
+    background: linear-gradient(145deg, #f5f5f5, #ffffff); /* Subtle gradient background */
+    border: 1px solid #ddd;
+    border-radius: 12px; /* Smoother rounded corners */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* Enhance shadow for a lifted effect */
+    overflow: hidden;
+    padding: 20px;
+    width: 350px;
+    height: 420px; /* Increase the height slightly */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover animation */
+}
+
+.card:hover {
+    transform: translateY(-10px); /* Subtle lift on hover */
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+}
+
+.card img {
+    width: 100%;
+    height: 180px; /* Adjust height */
+    object-fit: cover; /* Maintain aspect ratio */
+    border-radius: 8px; /* Rounded corners for the image */
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #053c6b; /* Professional theme color */
+    text-align: center; /* Center-align card titles */
+}
+
+.card p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+    text-align: justify; /* Better alignment for text */
+}
+
+.card .btn {
+    text-align: center;
+    padding: 12px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #f47920;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.card .btn:hover {
+    background-color: #d3671e; /* Darker orange on hover */
+}
+
+.card-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px; /* Spacing between cards */
+    flex-wrap: wrap;
+}
+
+
+
+
+/* Initial state for sections to be invisible */
+section {
+    opacity: 0;
+    transform: translateY(50px); /* Shift content down */
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* When the section is visible, we will change its opacity and transform */
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}

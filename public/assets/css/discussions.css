@@ -1,0 +1,294 @@
+/* Base styles and variables */
+:root {
+    --primary-color: #0066ff;
+    --secondary-color: #333;
+    --success-color: #4CAF50;
+    --danger-color: #f44336;
+    --warning-color: #ff9800;
+    --background-primary: #ffffff;
+    --background-secondary: #f5f7fa;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --border-color: #e1e4e8;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+/* General styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    background-color: var(--background-secondary);
+    color: var(--text-primary);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Messages */
+.success-message, .error-message {
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.success-message {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: var(--success-color);
+    border: 1px solid rgba(76, 175, 80, 0.2);
+}
+
+.error-message {
+    background-color: rgba(244, 67, 54, 0.1);
+    color: var(--danger-color);
+    border: 1px solid rgba(244, 67, 54, 0.2);
+}
+
+/* Search Section */
+.search-section {
+    margin: 20px 0;
+}
+
+.search-form {
+    display: flex;
+    gap: 10px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-form input {
+    flex: 1;
+    padding: 12px 20px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.search-form input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+}
+
+.search-form button {
+    padding: 12px 24px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.search-form button:hover {
+    background: #0052cc;
+    transform: translateY(-1px);
+}
+
+/* Discussions Section */
+.discussions-section {
+    background: var(--background-primary);
+    border-radius: 12px;
+    box-shadow: 0 2px 12px var(--shadow-color);
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.section-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.section-header h2 {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* Table Styles */
+.discussions-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.discussions-table th,
+.discussions-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.discussions-table th {
+    background-color: var(--background-secondary);
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.discussions-table tr:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.discussions-table a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.discussions-table a:hover {
+    color: #0052cc;
+}
+
+/* Action Buttons */
+.actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-start;
+}
+
+.view-btn, .delete-btn {
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.view-btn {
+    background-color: var(--primary-color);
+}
+
+.view-btn:hover {
+    background-color: #0052cc;
+    transform: translateY(-1px);
+}
+
+.delete-btn {
+    background-color: var(--danger-color);
+}
+
+.delete-btn:hover {
+    background-color: #d32f2f;
+    transform: translateY(-1px);
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.status-active {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: var(--success-color);
+}
+
+.status-pending {
+    background-color: rgba(255, 152, 0, 0.1);
+    color: var(--warning-color);
+}
+
+/* No Results Message */
+.no-results {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .container {
+        padding: 15px;
+    }
+
+    .discussions-table {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .discussions-table th:nth-child(3),
+    .discussions-table td:nth-child(3) {
+        display: none;
+    }
+
+    .search-form {
+        flex-direction: column;
+    }
+
+    .search-form button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .discussions-table th:nth-child(4),
+    .discussions-table td:nth-child(4) {
+        display: none;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
+
+    .view-btn, .delete-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Icons */
+.fas {
+    font-size: 1rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.discussions-section {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}

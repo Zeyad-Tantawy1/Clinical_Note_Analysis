@@ -101,21 +101,23 @@ $userManager->closeConnection();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<link rel="stylesheet" href="styles/userManagement.css">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Management</title>
+    
 </head>
 <body>
 <?php include('templates/header.php'); ?>
 
 <div class="container">
     <?php if (!empty($message)): ?>
-        <p><?php echo $message; ?></p>
+        <p class="success-text"><?php echo $message; ?></p>
     <?php endif; ?>
 
     <?php if (!empty($users)): ?>
-        <table class="highlight">
+        <table>
             <thead>
                 <tr>
                     <th>Username</th>
@@ -133,7 +135,7 @@ $userManager->closeConnection();
                         <td><?php echo htmlspecialchars($user['email']); ?></td>
                         <td><?php echo htmlspecialchars($user['pass']); ?></td>
                         <td><?php echo htmlspecialchars($user['id']); ?></td>
-                        <td><?php echo htmlspecialchars(strtoupper($user['role'])); ?></td>
+                        <td><?php echo strtoupper(htmlspecialchars($user['role'])); ?></td>
                         <td>
                             <a href="userManagement.php?delete_id=<?php echo $user['id']; ?>" class="btn brand z-depth-0" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
                             <a href="edit.php?id=<?php echo $user['id']; ?>" class="btn brand z-depth-0">Edit</a>
@@ -142,12 +144,13 @@ $userManager->closeConnection();
                 <?php endforeach; ?>
             </tbody>
         </table>
-        <a href="SignUp.php" class="btn brand z-depth-0">Add</a>
+        <a href="SignUp.php" class="btn brand z-depth-0">Add User</a>
     <?php else: ?>
-        <h5 class="red-text">No user at this time</h5>
+        <h5 class="red-text">No users found.</h5>
     <?php endif; ?>
 </div>
 
 <?php include('templates/footer.php'); ?>
 </body>
 </html>
+

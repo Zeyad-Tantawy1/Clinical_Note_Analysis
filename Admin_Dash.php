@@ -132,19 +132,20 @@ $notesPerDayJson = json_encode($notesPerDay);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clinical Note Analysis - Admin Dashboard</title>
     <link rel="stylesheet" href="styles/Admin_Dash.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
+
+    </head>
 <body>
-<?php include('templates/header.php');?>
     <div class="dashboard-container">
-        <!-- Sidebar -->
         <nav class="sidebar">
             <div class="sidebar-header">
                 <h2>ClinicalNotes</h2>
             </div>
             <ul class="nav-links">
-                <li><a href="#"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="index.php"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="notes.php"><i class="fas fa-notes-medical"></i> Notes</a></li>
                 <li><a href="userManagement.php"><i class="fas fa-users"></i> Users</a></li>
                 <li><a href="analytics.php"><i class="fas fa-chart-line"></i> Analytics</a></li>
@@ -152,54 +153,38 @@ $notesPerDayJson = json_encode($notesPerDay);
             </ul>
         </nav>
 
-        <!-- Main Content -->
-        <div class="main-content">
+        <main class="main-content">
             <header class="main-header">
-                <h1>Dashboard</h1>
-                <div class="profile-menu">
-                    
-                    
-                </div>
+                <h1>Dashboard Overview</h1>
             </header>
 
-            <!-- Stats Section -->
             <section class="dashboard-stats">
                 <div class="stat-card">
                     <h3>Total Discussion</h3>
-                    <p><?php echo isset($noteCount) ? $noteCount : 0; ?></p>
+                    <p><?php echo isset($noteCount) ? number_format($noteCount) : 0; ?></p>
                 </div>
                 <div class="stat-card">
                     <h3>Total Users</h3>
-                    <p><?php echo isset($userData) ? count($userData) : 0; ?></p>
+                    <p><?php echo isset($userData) ? number_format(count($userData)) : 0; ?></p>
                 </div>
                 <div class="stat-card">
                     <h3>Notes Analyzed Today</h3>
-                    <p><?php echo isset($todayNoteCount) ? $todayNoteCount : 0; ?></p>
+                    <p><?php echo isset($todayNoteCount) ? number_format($todayNoteCount) : 0; ?></p>
                 </div>
                 <div class="stat-card">
                     <h3>Pending Notes</h3>
                     <p>34</p>
                 </div>
             </section>
-            <script src="Admin_Dash.js?v=<?php echo time(); ?>"></script>
 
-          <!-- Charts Section -->
-          <section class="charts-section">
-    
-
-    <!-- Charts Section -->
-    <section class="charts-section">
-    
-
+            <section class="charts-section">
     <div class="chart">
         <h3>Note Status Distribution</h3>
-        <canvas id="statusChart"></canvas>
+        <canvas id="statusChart" height="300"></canvas>
     </div>
 </section>
-</section>
 
-           <!-- Notes Table -->
-           <section class="notes-section">
+            <section class="notes-section">
                 <h3>Recent Clinical Notes</h3>
                 <table class="notes-table">
                     <thead>
@@ -212,31 +197,206 @@ $notesPerDayJson = json_encode($notesPerDay);
                         </tr>
                     </thead>
                     <tbody>
-
-                        <?php $counter=0;?>
+                        <?php $counter = 0; ?>
                         <?php foreach ($userData as $user): ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($user['id']); ?></td>
-                        <td><?php echo htmlspecialchars($user['username']); ?></td>
-                        <td><?php echo htmlspecialchars($user['description']); ?></td>
-                        <td><?php echo htmlspecialchars($user['id']); ?></td>
-                        <td><?php echo htmlspecialchars($user['created_at']); ?></td>
-                        </tr>
-                    <?php $counter++; ?>
-                    <?php if ($counter == 5) break; ?>
-                <?php endforeach; ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($user['id']); ?></td>
+                                <td><?php echo htmlspecialchars($user['username']); ?></td>
+                                <td>
+                                    <?php 
+                                        $status = htmlspecialchars($user['description']);
+                                        $statusClass = '';
+                                        switch(strtolower($status)) {
+                                            case 'completed':
+                                                $statusClass = 'status-completed';
+                                                break;
+                                            case 'pending':
+                                                $statusClass = 'status-pending';
+                                                break;
+                                            default:
+                                                $statusClass = 'status-progress';
+                                        }
+                                    ?>
+                                    <span class="status-badge <?php echo $statusClass; ?>"><?php echo $status; ?></span>
+                                </td>
+                                <td><?php echo htmlspecialchars($user['id']); ?></td>
+                                <td><?php echo htmlspecialchars($user['created_at']); ?></td>
+                            </tr>
+                            <?php $counter++; ?>
+                            <?php if ($counter == 5) break; ?>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </section>
-            <a class="waves-effect waves-teal btn-flat" href="notes.php">See More</a>
-        </div>
+        </main>
     </div>
 
-   
+    
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+            // Configure Chart.js defaults
+            Chart.defaults.font.family = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+            Chart.defaults.font.size = 12;
+            Chart.defaults.plugins.tooltip.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+            
+            // Data for Activity Chart (Notes Created Per Day)
+            const activityChartData = {
+                type: 'line',
+                data: {
+                    labels: <?php echo json_encode(array_map(function($day) {
+                        return date('M d', strtotime($day['day']));
+                    }, $notesPerDay)); ?>,
+                    datasets: [{
+                        label: 'Notes Created',
+                        data: <?php echo json_encode(array_map(function($day) {
+                            return $day['count'];
+                        }, $notesPerDay)); ?>,
+                        borderColor: '#2563eb',
+                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#ffffff',
+                        pointBorderColor: '#2563eb',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            padding: 10,
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleColor: '#ffffff',
+                            bodyColor: '#ffffff',
+                            titleFont: {
+                                size: 13,
+                                weight: 'bold'
+                            },
+                            bodyFont: {
+                                size: 12
+                            },
+                            displayColors: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                padding: 10,
+                                color: '#6b7280'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                padding: 10,
+                                color: '#6b7280'
+                            }
+                        }
+                    }
+                }
+            };
 
+            // Get Status Distribution Data (Note Statuses)
+            const statusDistribution = <?php 
+                $distribution = $adminDashboard->getNoteStatusDistribution();
+                echo json_encode(array_map(function($status) {
+                    return [
+                        'label' => $status['status'],
+                        'count' => $status['count']
+                    ];
+                }, $distribution));
+            ?>;
+
+            // Data for Status Chart (Doughnut Chart)
+            const statusChartData = {
+                type: 'doughnut',
+                data: {
+                    labels: statusDistribution.map(item => item.label),
+                    datasets: [{
+                        data: statusDistribution.map(item => item.count),
+                        backgroundColor: [
+                            '#10b981', // Success (Completed)
+                            '#f59e0b', // Warning (Pending)
+                            '#2563eb'  // Primary (In Progress or other status)
+                        ],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '75%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true,
+                                pointStyle: 'circle'
+                            }
+                        },
+                        tooltip: {
+                            padding: 10,
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleColor: '#ffffff',
+                            bodyColor: '#ffffff',
+                            titleFont: {
+                                size: 13,
+                                weight: 'bold'
+                            },
+                            bodyFont: {
+                                size: 12
+                            },
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.raw || 0;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = Math.round((value / total) * 100);
+                                    return `${label}: ${value} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            // Initialize the Activity Chart (Line Chart)
+            try {
+                // Activity Chart
+                const activityCtx = document.getElementById('activityChart').getContext('2d');
+                new Chart(activityCtx, activityChartData);
+
+                // Status Chart (Doughnut Chart)
+                const statusCtx = document.getElementById('statusChart').getContext('2d');
+                new Chart(statusCtx, statusChartData);
+            } catch (error) {
+                console.error('Error initializing charts:', error);
+            }
+        });
+    
+</script>
 </body>
 </html>
+
 
 
 <!-- <ul class="collection">

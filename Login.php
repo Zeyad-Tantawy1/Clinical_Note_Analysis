@@ -93,6 +93,7 @@ if (isset($_POST['submit'])) {
 
             <button type="submit" name="submit" value="submit" class="btn">Login</button>
             <a class="waves-effect waves-teal btn-flat" href="SignUp.php">SignUp</a>
+            <a class="waves-effect waves-teal btn-flat" href="Forget_Password.php">Forget Password</a>
         </form>
     </div>
 </body>

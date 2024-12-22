@@ -47,7 +47,106 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $notesPerDay = [];
 }
 ?>
+<style>
+    /* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f5f7;
+    color: #333;
+    line-height: 1.6;
+}
 
+/* Header */
+header {
+    background-color: #2563eb;
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Form Styles */
+form {
+    background: #fff;
+    padding: 1.5rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 2rem auto;
+}
+
+form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+form input[type="week"] {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: #555;
+}
+
+form button {
+    display: inline-block;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #1d4ed8;
+}
+
+/* Section Heading */
+h2 {
+    text-align: center;
+    margin-top: 2rem;
+    color: #1f2937;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+/* Chart Container */
+canvas {
+    display: block;
+    max-width: 600px;
+    margin: 2rem auto;
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    form {
+        padding: 1rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    canvas {
+        max-width: 100%;
+    }
+}
+
+</style>
 
 
 <!DOCTYPE html>
@@ -56,6 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Analytics</title>
+    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>

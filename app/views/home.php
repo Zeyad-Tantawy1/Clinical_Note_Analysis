@@ -119,6 +119,34 @@ $role = $data['role'] ?? null;
             </div>
         </div>
     </section>
+     <!-- Contact Section -->
+     <section class="contact-section">
+        <h2>Contact Us</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Get in Touch</h3>
+                <p>We would love to hear from you. Whether you have questions or need support, reach out to us.</p>
+                <p><strong>Email:</strong> support@clinicalnotes.com</p>
+                <p><strong>Phone:</strong> +1 (234) 567-8901</p>
+                <p><strong>Address:</strong> 123 Healthcare Blvd, Tech City</p>
+            </div>
+            <div class="contact-form">
+                <h3>Send a Message</h3>
+                <form method="POST" action="submit_contact.php">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                    
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                    
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                    
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
     <?php include('partials/footer.php'); ?>
 </body>
 </html>

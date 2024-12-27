@@ -8,51 +8,66 @@ html {
     box-sizing: border-box;
 }
 
-body {
-    font-size: 14px;
-    font-family: 'Titillium Web', sans-serif;
-    background-color: #f5f2ed;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
+:root {
+    --primary-color: #2563eb;
+    --secondary-color: #1e40af;
+    --accent-color: #3b82f6;
+    --text-color: #1f2937;
+    --light-gray: #f3f4f6;
+    --white: #ffffff;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+/* Header/Hero Section */
 .hero-section {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    /* padding: 4rem 8%; */
     padding: 40px;
-    opacity: 1;
-    transform: translateY(0);
-    transition: none;
-}
-
-section.visible {
-    opacity: 1;
-    transform: translateY(0);
+    background: linear-gradient(to right, var(--white) 60%, var(--light-gray) 40%);
+    min-height: 80vh;
 }
 
 .content {
-    max-width: 50%;
+    flex: 1;
+    padding-right: 4rem;
 }
 
 .clinic-name {
-    color: #f47920;
-    font-size: 16px;
-    letter-spacing: 1px;
-    font-weight: bold;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
 }
 
 .tagline {
-    font-size: 18px;
-    color: #666;
-    margin: 10px 0;
+    font-size: 1.25rem;
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
 }
 
 .headline {
-    font-size: 36px;
-    color: #053c6b;
-    margin-bottom: 20px;
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 2rem;
+}
+
+.image-container {
+    flex: 1;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 1rem;
+    box-shadow: var(--shadow);
 }
 
 .buttons {
@@ -60,6 +75,7 @@ section.visible {
 }
 
 .btn {
+   
     text-decoration: none;
     padding: 10px 20px;
     border-radius: 4px;
@@ -92,188 +108,170 @@ section.visible {
     outline-offset: 4px;
 }
 
-.image-container {
-    max-width: 45%;
+
+.about {
+    padding: 80px 0;
+    background-color: #f8fafc;
 }
 
-.image-container img {
-    width: 100%;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.about-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-.about-section {
-    padding: 50px 20px;
-    background-color: #f5f2ed;
+.about-title {
     text-align: center;
+    font-size: 2.5rem;
+    color: #1e40af;
+    margin-bottom: 60px;
+    font-weight: 700;
+    position: relative;
 }
 
-.about-row {
+.about-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: #3b82f6;
+    border-radius: 2px;
+}
+
+.about-card {
+    margin-bottom: 60px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.about-card:hover {
+    transform: translateY(-5px);
+}
+
+.about-content {
     display: flex;
     align-items: center;
-    margin-bottom: 50px;
-    gap: 20px;
+    gap: 40px;
+    padding: 40px;
 }
 
-.about-row.reverse {
+.about-card.reverse .about-content {
     flex-direction: row-reverse;
 }
 
 .about-text {
     flex: 1;
-    padding: 20px;
 }
 
-.about-text h2 {
-    font-size: 28px;
-    color: #053c6b;
-    margin-bottom: 10px;
+.about-text h3 {
+    font-size: 1.8rem;
+    color: #1e40af;
+    margin-bottom: 20px;
+    font-weight: 600;
 }
 
 .about-text p {
-    font-size: 16px;
-    color: #555;
-    line-height: 1.6;
+    color: #4b5563;
+    line-height: 1.8;
+    font-size: 1.1rem;
 }
 
 .about-image {
     flex: 1;
-    text-align: center;
+    position: relative;
 }
 
 .about-image img {
     width: 100%;
-    max-width: 450px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-@media (max-width: 768px) {
-    .about-row {
-        flex-direction: column;
+/* Animation for cards */
+.about-card {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
-.inclusive-section {
-    padding: 60px 40px;
+/* Apply different delays to cards */
+.about-card:nth-child(2) {
+    animation-delay: 0.2s;
 }
 
-.inclusive-content {
-    display: flex;
-    align-items: center;
-    gap: 40px;
+.about-card:nth-child(3) {
+    animation-delay: 0.4s;
 }
 
-.inclusive-image {
-    flex: 1;
+.about-card:nth-child(4) {
+    animation-delay: 0.6s;
 }
 
-.inclusive-image img {
-    width: 100%;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Responsive Design */
+@media (max-width: 992px) {
+    .about {
+        padding: 60px 0;
+    }
+    
+    .about-content {
+        flex-direction: column !important;
+        padding: 30px;
+    }
+    
+    .about-image img {
+        height: 250px;
+    }
+    
+    .about-text h3 {
+        font-size: 1.6rem;
+    }
 }
 
-.inclusive-text {
-    flex: 1;
+@media (max-width: 768px) {
+    .about-title {
+        font-size: 2rem;
+    }
+    
+    .about-text p {
+        font-size: 1rem;
+    }
+    
+    .about-image img {
+        height: 200px;
+    }
 }
 
-.inclusive-text h2 {
-    font-size: 36px;
-    text-align: left;
-    margin-left: 20px;
-    color: #053c6b;
-}
-
-.inclusive-text ul {
-    font-size: 20px;
-    line-height: 1.8;
-    margin-left: 40px;
-    color: #333;
-}
-
-.card-section .section-title {
-    font-size: 40px;
-    font-weight: bold;
-    text-align: center;
-    color: #053c6b;
-    margin-bottom: 30px;
-}
-
-.card {
-    background: linear-gradient(145deg, #f5f5f5, #ffffff);
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    padding: 20px;
-    width: 350px;
-    height: 420px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
-}
-
-.card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 15px;
-}
-
-.card h3 {
-    font-size: 22px;
-    margin-bottom: 10px;
-    color: #053c6b;
-    text-align: center;
-}
-
-.card p {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 15px;
-    text-align: justify;
-}
-
-.card .btn {
-    text-align: center;
-    padding: 12px 20px;
-    font-size: 16px;
-    color: #fff;
-    background-color: #f47920;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.card .btn:hover {
-    background-color: #d3671e;
-}
-
-.card-grid {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-}
-
-section {
-    opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-section.visible {
-    opacity: 1;
-    transform: translateY(0);
+@media (max-width: 480px) {
+    .about {
+        padding: 40px 0;
+    }
+    
+    .about-content {
+        padding: 20px;
+    }
+    
+    .about-title {
+        font-size: 1.8rem;
+    }
+    
+    .about-text h3 {
+        font-size: 1.4rem;
+    }
 }
 
 /* Contact Section */
@@ -316,4 +314,168 @@ section.visible {
 
 .contact-form label {
     font-weight: 600;
+}
+
+/* Features Section */
+.inclusive-section {
+    padding: 5rem 8%;
+    background-color: var(--white);
+}
+
+.inclusive-content {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+}
+
+.inclusive-image {
+    flex: 1;
+}
+
+.inclusive-image img {
+    width: 100%;
+    border-radius: 1rem;
+    box-shadow: var(--shadow);
+}
+
+.inclusive-text {
+    flex: 1;
+}
+
+.inclusive-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+}
+
+.inclusive-text ul {
+    list-style-type: none;
+}
+
+.inclusive-text li {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.inclusive-text li::before {
+    content: "•";
+    color: var(--primary-color);
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+/* Cards Section */
+.card-section {
+    padding: 5rem 8%;
+    background-color: var(--light-gray);
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--primary-color);
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card {
+    background-color: var(--white);
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.card .btn {
+    background-color:  #f47920;
+}
+
+.card .btn:hover {
+    background-color:  #e8dbd1;
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--secondary-color);
+}
+
+.card p {
+    margin-bottom: 1.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .hero-section {
+        flex-direction: column;
+        text-align: center;
+        padding: 3rem 5%;
+    }
+
+    .content {
+        padding-right: 0;
+        margin-bottom: 2rem;
+    }
+
+    .buttons {
+        justify-content: center;
+    }
+
+    .about-row {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-row.reverse {
+        flex-direction: column;
+    }
+
+    .contact-container {
+        flex-direction: column;
+    }
+
+    .inclusive-content {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .headline {
+        font-size: 2rem;
+    }
+
+    .clinic-name {
+        font-size: 2rem;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
 }

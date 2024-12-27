@@ -12,7 +12,7 @@ $role = $data['role'] ?? null;
     <title>Dental Clinic</title>
     <link rel="stylesheet" href="http://localhost/project/public/assets/css/home.css">
     <script src="http://localhost/project/public/assets/js/home.js"></script>
-</head>
+    </head>
 <body>
     <?php include('partials/header.php'); ?>
     <header class="hero-section">
@@ -29,44 +29,52 @@ $role = $data['role'] ?? null;
             <img src="http://localhost/project/public/assets/img/ok.jpg" alt="reviewing clinical notes">
         </div>
     </header>
-    <section class="about-section">
-        <!-- Who We Are -->
-        <div class="about-row">
-            <div class="about-text">
-                <h2>Who We Are</h2>
-                <p>
-                    Our Clinical Note Analysis System is designed to revolutionize how healthcare professionals manage and interpret clinical notes. By leveraging cutting-edge technologies, we streamline workflows, improve accuracy, and enhance patient care.
-                </p>
-            </div>
-            <div class="about-image">
-                <img src="http://localhost/project/public/assets/img/analyze.jpg" alt="Who We Are">
-            </div>
-        </div>
-        <!-- Our Goal -->
-        <div class="about-row reverse">
-            <div class="about-text">
-                <h2>Our Goal</h2>
-                <p>
-                    We aim to empower healthcare providers with tools that simplify complex data, improve decision-making, and foster a future where technology bridges the gap between patient data and actionable insights.
-                </p>
-            </div>
-            <div class="about-image">
-                <img src="http://localhost/project/public/assets/img/target.jpg" alt="Our Goal">
+
+    <!-- About Section -->
+    <section class="about">
+    <div class="about-container">
+        <h2 class="about-title">About Us</h2>
+        
+        <div class="about-card">
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Who We Are</h3>
+                    <p>Our Clinical Note Analysis System is designed to revolutionize how healthcare professionals manage and interpret clinical notes. By leveraging cutting-edge technologies, we streamline workflows, improve accuracy, and enhance patient care.</p>
+                </div>
+                <div class="about-image">
+                    <img src="http://localhost/project/public/assets/img/analyze.jpg" alt="Who We Are">
+                </div>
             </div>
         </div>
-        <!-- Why Choose Us -->
-        <div class="about-row">
-            <div class="about-text">
-                <h2>Why Choose Us</h2>
-                <p>
-                    What sets us apart is our commitment to innovation, security, and user-centric design. With a focus on accuracy and efficiency, we ensure healthcare professionals can focus on what truly matters: delivering exceptional patient care.
-                </p>
-            </div>
-            <div class="about-image">
-                <img src="http://localhost/project/public/assets/img/why.jpg" alt="Why Choose Us">
+
+        <div class="about-card reverse">
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Our Goal</h3>
+                    <p>We aim to empower healthcare providers with tools that simplify complex data, improve decision-making, and foster a future where technology bridges the gap between patient data and actionable insights.</p>
+                </div>
+                <div class="about-image">
+                    <img src="http://localhost/project/public/assets/img/target.jpg" alt="Our Goal">
+                </div>
             </div>
         </div>
-    </section>
+
+        <div class="about-card">
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Why Choose Us</h3>
+                    <p>What sets us apart is our commitment to innovation, security, and user-centric design. With a focus on accuracy and efficiency, we ensure healthcare professionals can focus on what truly matters: delivering exceptional patient care.</p>
+                </div>
+                <div class="about-image">
+                    <img src="http://localhost/project/public/assets/img/why.jpg" alt="Why Choose Us">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    
+    <!-- Features Section -->
     <section class="inclusive-section">
         <div class="container">
             <div class="inclusive-content">
@@ -85,6 +93,8 @@ $role = $data['role'] ?? null;
             </div>
         </div>
     </section>
+
+    <!-- Cards Section -->
     <section id="features" class="card-section">
         <h2 class="section-title">Explore Our Features</h2>
         <div class="card-grid">
@@ -93,7 +103,7 @@ $role = $data['role'] ?? null;
                 <img src="http://localhost/project/public/assets/img/analytic.jpg" alt="Analyze Clinical Notes">
                 <h3>Analyze</h3>
                 <p>Effortlessly analyze clinical notes using our intelligent system for deeper insights.</p>
-                <button class="btn" onclick="window.location.href='<?php echo $isLoggedIn ? 'A7A.php' : 'index.php?url=login/index'; ?>'">
+                <button class="btn" onclick="window.location.href='<?php echo $isLoggedIn ? 'test.php' : 'index.php?url=login/index'; ?>'">
                     Learn More
                 </button>
             </div>
@@ -119,8 +129,8 @@ $role = $data['role'] ?? null;
             </div>
         </div>
     </section>
-     <!-- Contact Section -->
-     <section class="contact-section">
+    <!-- Contact Section -->
+    <section class="contact-section">
         <h2>Contact Us</h2>
         <div class="contact-container">
             <div class="contact-info">
@@ -147,6 +157,7 @@ $role = $data['role'] ?? null;
             </div>
         </div>
     </section>
+
     <?php include('partials/footer.php'); ?>
 </body>
 </html>

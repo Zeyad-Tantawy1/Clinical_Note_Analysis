@@ -15,23 +15,18 @@ $role = $data['role'] ?? null;
     </head>
 <body>
     <?php include('partials/header.php'); ?>
-    <header class="hero-section">
         <div class="content">
+        <div class="image-container">
+            <img src="http://localhost/project/public/assets/img/back1.png" alt="background">
+        </div>
             <h1 class="clinic-name">ACE LAB FOR CLINICAL NOTE ANALYSIS</h1>
-            <p class="tagline">Offering the best dental packages year-round</p>
-            <h2 class="headline">High-quality dental care, made more accessible</h2>
+            <p class="tagline">Unlock valuable insights from your clinical notes with the power of AI</p>
             <div class="buttons">
-                <a href="#" class="btn btn-primary">Visit Our Clinic</a>
-                <a href="#" class="btn btn-secondary">Make an Appointment</a>
+                <a href="#" class="btn btn-primary">Try For Free</a>
             </div>
         </div>
-        <div class="image-container">
-            <img src="http://localhost/project/public/assets/img/ok.jpg" alt="reviewing clinical notes">
-        </div>
-    </header>
-
     <!-- About Section -->
-    <section class="about">
+    <section id="about" class="about">
     <div class="about-container">
         <h2 class="about-title">About Us</h2>
         
@@ -130,7 +125,7 @@ $role = $data['role'] ?? null;
         </div>
     </section>
     <!-- Contact Section -->
-    <section class="contact-section">
+    <section  id="contact" class="contact-section">
         <h2>Contact Us</h2>
         <div class="contact-container">
             <div class="contact-info">

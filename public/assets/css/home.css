@@ -133,10 +133,7 @@ body {
     box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
 }
 
-.btn:hover {
-    /* Remove the transform property */
-    /* transform: translateY(-3px); */
-}
+
 
 .btn-primary:hover {
     background-color: #1e40af; /* Darker shade of the primary color */

@@ -6,7 +6,6 @@ class HomeController extends Controller
     private $userDataFetcher;
 
     public function __construct() {
-        session_start();
         $this->userDataFetcher = new UserDataFetcher();
     }
 

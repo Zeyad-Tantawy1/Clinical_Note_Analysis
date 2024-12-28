@@ -1,4 +1,5 @@
 <?php
+define('GOOGLE_API_KEY', 'AIzaSyD5vGPPA5E509JfnnxTXlNFDiR8ejewdEg');
 
 if (!class_exists('Database'))
 {

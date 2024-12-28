@@ -22,7 +22,7 @@ $role = $data['role'] ?? null;
             <h1 class="clinic-name">ACE LAB FOR CLINICAL NOTE ANALYSIS</h1>
             <p class="tagline">Unlock valuable insights from your clinical notes with the power of AI</p>
             <div class="buttons">
-                <a href="#" class="btn btn-primary">Try For Free</a>
+                <a href="index.php?url=nlp/index" class="btn btn-primary">Try For Free</a>
             </div>
         </div>
     <!-- About Section -->

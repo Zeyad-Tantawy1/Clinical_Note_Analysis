@@ -8,7 +8,6 @@ class TopicController extends Controller
     private $commentModel;
 
     public function __construct() {
-        session_start();
         $this->topicModel = new Topic();
         $this->commentModel = new Comment();
     }

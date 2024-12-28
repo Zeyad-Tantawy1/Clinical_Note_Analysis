@@ -5,7 +5,6 @@ class UserEditController extends Controller {
     private $userModel;
 
     public function __construct() {
-        session_start();
         // Check if user is logged in and is admin
         if (!isset($_SESSION['role']) || strtolower($_SESSION['role']) !== 'admin') {
             header('Location: index.php?url=home/index');

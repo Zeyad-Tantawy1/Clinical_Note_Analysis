@@ -9,7 +9,6 @@ class AddTopicController extends Controller {
     }
 
     public function index() {
-        session_start();
         if (!isset($_SESSION['username'])) {
             header('Location: index.php?url=login/index');
             exit();

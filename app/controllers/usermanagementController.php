@@ -5,7 +5,6 @@ class UserManagementController extends Controller {
     private $userManager;
 
     public function __construct() {
-        session_start();
         if (!isset($_SESSION['role']) || strtolower($_SESSION['role']) !== 'admin') {
             header('Location: index.php?url=home/index');
             exit();

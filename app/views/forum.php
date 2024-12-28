@@ -1,6 +1,5 @@
 <?php
 include('config/connect_DB.php');
-session_start();
 class ForumManager {
     private $conn;
     public function __construct()

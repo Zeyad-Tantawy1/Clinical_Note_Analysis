@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="http://localhost/project/public/assets/css/addtopic.css">
 </head>
 <body>
+    
     <div class="new-topic-container">
         <h1>Create a New Topic</h1>
         <form id="newTopicForm" class="new-topic-form" action="index.php?url=addTopic/create" method="POST">

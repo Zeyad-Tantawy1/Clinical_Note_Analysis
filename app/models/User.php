@@ -172,14 +172,6 @@ public $errors = ['email' => '', 'password' => ''];
     }
 
     // Update user profile
-    public function updateProfile($userId, $data) {
-        $sql = "UPDATE {$this->table} SET username = ?, email = ? WHERE id = ?";
-        $stmt = mysqli_prepare($this->conn, $sql);
-        mysqli_stmt_bind_param($stmt, "ssi", $data['username'], $data['email'], $userId);
-        $success = mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
-        return $success;
-    }
 
     // Change password
     public function changePassword($userId, $newPassword) {
@@ -286,6 +278,35 @@ public $errors = ['email' => '', 'password' => ''];
         $success = mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
         return $success;
+    }
+
+    // Add this to your User.php model if it's not already there
+    public function updateProfile($userId, $data) {
+        
+        $sql = "UPDATE {$this->table} SET username = ?, email = ? WHERE id = ?";
+        $stmt = mysqli_prepare($this->conn, $sql);
+        mysqli_stmt_bind_param($stmt, "ssi", $data['username'], $data['email'], $userId);
+        return mysqli_stmt_execute($stmt);
+    }
+
+    public function isUsernameTaken($username) {
+        $sql = "SELECT COUNT(*) as count FROM {$this->table} WHERE username = ? AND id != ?";
+        $stmt = mysqli_prepare($this->conn, $sql);
+        mysqli_stmt_bind_param($stmt, "si", $username, $_SESSION['user_id']);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $row = mysqli_fetch_assoc($result);
+        return $row['count'] > 0;
+    }
+    
+    public function isEmailTaken($email) {
+        $sql = "SELECT COUNT(*) as count FROM {$this->table} WHERE email = ? AND id != ?";
+        $stmt = mysqli_prepare($this->conn, $sql);
+        mysqli_stmt_bind_param($stmt, "si", $email, $_SESSION['user_id']);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $row = mysqli_fetch_assoc($result);
+        return $row['count'] > 0;
     }
 }
 ?>
